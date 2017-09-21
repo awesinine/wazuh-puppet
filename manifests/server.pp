@@ -70,25 +70,38 @@ class wazuh::server (
     ensure  => $server_package_version
   }
 
- File {
-    owner   => $wazuh::params::config_owner,
-    group   => $wazuh::params::config_group,
-    mode    => $wazuh::params::config_mode,
-    notify  => Service[$wazuh::params::server_service],
-    require => Package[$wazuh::params::server_package]
-  }
-
-  file {
+ file {
     $wazuh::params::shared_agent_config_file:
+        owner   => $wazuh::params::config_owner,
+        group   => $wazuh::params::config_group,
+        mode    => $wazuh::params::config_mode,
+        notify  => Service[$wazuh::params::server_service],
+        require => Package[$wazuh::params::server_package],
       validate_cmd => $wazuh::params::validate_cmd_conf,
       content      => template($shared_agent_template);
     '/var/ossec/etc/rules/local_rules.xml':
+        owner   => $wazuh::params::config_owner,
+        group   => $wazuh::params::config_group,
+        mode    => $wazuh::params::config_mode,
+        notify  => Service[$wazuh::params::server_service],
+        require => Package[$wazuh::params::server_package],
       content      => template($local_rules_template);
     '/var/ossec/etc/decoders/local_decoder.xml':
+        owner   => $wazuh::params::config_owner,
+        group   => $wazuh::params::config_group,
+        mode    => $wazuh::params::config_mode,
+        notify  => Service[$wazuh::params::server_service],
+        require => Package[$wazuh::params::server_package],
       content      => template($local_decoder_template);
     $wazuh::params::processlist_file:
+        owner   => $wazuh::params::config_owner,
+        group   => $wazuh::params::config_group,
+        mode    => $wazuh::params::config_mode,
+        notify  => Service[$wazuh::params::server_service],
+        require => Package[$wazuh::params::server_package],
       content      => template('wazuh/process_list.erb');
   }
+
 
   service { $wazuh::params::server_service:
     ensure    => running,
