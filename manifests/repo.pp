@@ -6,8 +6,7 @@ class wazuh::repo (
   case $::osfamily {
     'Debian' : {
       # apt-key added by issue #34
-      apt::key { 'wazuh':
-        id     => '0DCFCA5547B19D2A6099506096B3EE5F29111145',
+      apt::key { '0DCFCA5547B19D2A6099506096B3EE5F29111145':
         source => 'https://packages.wazuh.com/key/GPG-KEY-WAZUH'
       }
       case $::lsbdistcodename {
