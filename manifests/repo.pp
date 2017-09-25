@@ -19,10 +19,8 @@ class wazuh::repo (
             location => 'https://packages.wazuh.com/apt',
             release  => $::lsbdistcodename,
             repos    => 'main',
-            include  => {
-              'src' => false,
-              'deb' => true,
-            },
+            include_deb  => true,
+            include_src  => false,
           }
 
         }
